@@ -20,7 +20,8 @@ pub extern "C" fn _start() -> ! {
     
     printc!(vga_buffer::Color::Pink, "Hello World!\n");
     printc!(vga_buffer::Color::Green, "Hello World!\n"); 
-    
+    printc!(vga_buffer::Color::Cyan, "Hello World!\n");
+
     #[cfg(test)]
     test_main();
  
@@ -45,6 +46,13 @@ fn trivial_assertion() {
 #[test_case]
 fn color_green() {
     printc!(vga_buffer::Color::Green, "this text is green...");
+    assert_eq!(1, 1);
+    print!("[ok]\n");
+}
+
+#[test_case]
+fn color_green() {
+    printc!(vga_buffer::Color::Cyan, "this text is cyan...");
     assert_eq!(1, 1);
     print!("[ok]\n");
 }
