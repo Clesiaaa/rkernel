@@ -18,16 +18,17 @@ fn panic(info: &PanicInfo) -> ! {
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
     
-    printc!(vga_buffer::Color::Pink, "Hello World!\n");
-    printc!(vga_buffer::Color::Green, "Hello World!\n"); 
-    printc!(vga_buffer::Color::Cyan, "Hello World!\n");
+    printc!(vga_buffer::Color::Brown, "R");
+    printc!(vga_buffer::Color::LightGray, "kernel\n"); 
 
     #[cfg(test)]
     test_main();
  
     loop {}
 }
- 
+pub fn title() -> () {
+
+}
 #[cfg(test)]
 pub fn test_runner(tests: &[&dyn Fn()]) {
     println!("Running {} tests \n", tests.len());
