@@ -17,8 +17,10 @@ fn panic(info: &PanicInfo) -> ! {
  
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
-    println!("Hello World{}", "!");
- 
+    
+    printc!(vga_buffer::Color::Pink, "Hello World!\n");
+    printc!(vga_buffer::Color::Green, "Hello World!\n"); 
+    
     #[cfg(test)]
     test_main();
  
@@ -27,7 +29,7 @@ pub extern "C" fn _start() -> ! {
  
 #[cfg(test)]
 pub fn test_runner(tests: &[&dyn Fn()]) {
-    println!("Running {} tests", tests.len());
+    println!("Running {} tests \n", tests.len());
     for test in tests {
         test();
     }
@@ -35,14 +37,14 @@ pub fn test_runner(tests: &[&dyn Fn()]) {
  
 #[test_case]
 fn trivial_assertion() {
-    print!("trivial assertion... ");
+    print!("trivial assertion...");
     assert_eq!(1, 1);
-    println!("[ok]");
+    print!("[ok]");
 }
 
 #[test_case]
-fn scnd_trivial_assertion() {
-    print!("second trivial assertion... ");
-    assert_eq!(true, true);
-    println!("[ok]");
+fn color_green() {
+    printc!(vga_buffer::Color::Green, "this text is green...");
+    assert_eq!(1, 1);
+    print!("[ok]\n");
 }
