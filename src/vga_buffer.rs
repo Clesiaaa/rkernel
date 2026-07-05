@@ -108,6 +108,22 @@ impl Writer {
             self.buffer.chars[row][col].write(blank);
         }
     }
+
+    pub fn backspace(&mut self) {
+        if self.column_position > 0 {
+            self.column_position -= 1;
+            let row = BUFFER_HEIGHT - 1;
+            let col = self.column_position;
+            let blank = ScreenChar { 
+                ascii_character: b' ', 
+                color_code: self.color_code, };
+            self.buffer.chars[row][col].write(blank);
+        }
+    }
+}
+
+pub fn backspace() {
+    WRITER.lock().backspace();
 }
 
 impl fmt::Write for Writer {

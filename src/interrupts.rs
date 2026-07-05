@@ -83,8 +83,9 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(
     if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
         if let Some(key) = keyboard.process_keyevent(key_event) {
             match key {
-                DecodedKey::Unicode(character) => print!("{}", character),
-                DecodedKey::RawKey(key) => print!("{:?}", key),
+                DecodedKey::Unicode('\u{8}') => crate::vga_buffer::backspace(),
+                DecodedKey::Unicode(c) => print!("{}", c),
+                DecodedKey::RawKey(_) => {}
             }
         }
     }
