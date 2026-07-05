@@ -1,1 +1,1 @@
-/home/robertfolga/Bureau/projects/my_os/target/x86_64-my_os/debug/my_os: /home/robertfolga/Bureau/projects/my_os/src/main.rs /home/robertfolga/Bureau/projects/my_os/src/vga_buffer.rs
+/home/robertfolga/Bureau/projects/my_os/target/x86_64-my_os/debug/my_os: /home/robertfolga/Bureau/projects/my_os/src/interrupts.rs /home/robertfolga/Bureau/projects/my_os/src/lib.rs /home/robertfolga/Bureau/projects/my_os/src/main.rs /home/robertfolga/Bureau/projects/my_os/src/vga_buffer.rs

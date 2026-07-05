@@ -1,14 +1,12 @@
 #![no_std]
 #![no_main]
-#![feature(custom_test_frameworks)]
-#![test_runner(crate::test_runner)]
-#![reexport_test_harness_main = "test_main"]
  
-mod vga_buffer;
- 
+use my_os::vga_buffer;
+use my_os::println;
+use my_os::printc;
+use my_os::print;
 use core::panic::PanicInfo;
  
-/// This function is called on panic situations.
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
@@ -20,40 +18,8 @@ pub extern "C" fn _start() -> ! {
     
     printc!(vga_buffer::Color::Brown, "R");
     printc!(vga_buffer::Color::LightGray, "kernel\n"); 
-
-    #[cfg(test)]
-    test_main();
+    
+    my_os::init();
  
     loop {}
-}
-pub fn title() -> () {
-
-}
-#[cfg(test)]
-pub fn test_runner(tests: &[&dyn Fn()]) {
-    println!("Running {} tests \n", tests.len());
-    for test in tests {
-        test();
-    }
-}
- 
-#[test_case]
-fn trivial_assertion() {
-    print!("trivial assertion...");
-    assert_eq!(1, 1);
-    print!("[ok]");
-}
-
-#[test_case]
-fn color_green() {
-    printc!(vga_buffer::Color::Green, "this text is green...");
-    assert_eq!(1, 1);
-    print!("[ok]\n");
-}
-
-#[test_case]
-fn color_green() {
-    printc!(vga_buffer::Color::Cyan, "this text is cyan...");
-    assert_eq!(1, 1);
-    print!("[ok]\n");
 }

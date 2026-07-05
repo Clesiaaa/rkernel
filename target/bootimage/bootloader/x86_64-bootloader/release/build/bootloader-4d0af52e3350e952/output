@@ -1,7 +1,7 @@
 cargo:rerun-if-changed=/home/robertfolga/Bureau/projects/my_os/Cargo.toml
 cargo:rustc-link-search=native=/home/robertfolga/Bureau/projects/my_os/target/bootimage/bootloader/x86_64-bootloader/release/build/bootloader-4d0af52e3350e952/out
-cargo:rustc-link-lib=static=kernel_bin-my_os-89202e6672cd6764
+cargo:rustc-link-lib=static=kernel_bin-my_os
 cargo:rerun-if-env-changed=KERNEL
 cargo:rerun-if-env-changed=KERNEL_MANIFEST
-cargo:rerun-if-changed=/home/robertfolga/Bureau/projects/my_os/target/x86_64-my_os/debug/deps/my_os-89202e6672cd6764
+cargo:rerun-if-changed=/home/robertfolga/Bureau/projects/my_os/target/x86_64-my_os/debug/my_os
 cargo:rerun-if-changed=build.rs
