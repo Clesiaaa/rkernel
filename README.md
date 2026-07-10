@@ -1,9 +1,24 @@
 # rust kernel
 
-This is a simple kernel written in rust.
-It display "Hello World!".
+This is a kernel written in rust.
 
 You will need "QEMU" to run this.
+
+implemented :
+
+- text printing
+- colored text printing
+- cpu interrupt
+- keyword entry
+- entry points
+- backspace()
+- paging
+
+next :
+
+1. memory allocation
+2. vfs
+3. ???
 
 to run this :
 
