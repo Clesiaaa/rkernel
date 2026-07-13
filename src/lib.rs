@@ -1,9 +1,12 @@
 #![no_std]
 #![feature(abi_x86_interrupt)]
 
+extern crate alloc;
+
 pub mod vga_buffer;
 pub mod interrupts;
 pub mod memory;
+pub mod allocator;
 
 pub fn init() {
     interrupts::init_idt();
