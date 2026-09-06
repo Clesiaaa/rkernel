@@ -8,7 +8,7 @@ use lazy_static::lazy_static;
 #[repr(u8)]
 pub enum Color {
     Black = 0,
-    Blue = 1, 
+    Blue = 1,
     Green = 2,
     Cyan = 3,
     Red = 4,
@@ -47,30 +47,26 @@ const BUFFER_WIDTH: usize = 80;
 
 #[repr(transparent)]
 struct Buffer {
-    chars : [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
+    chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 pub struct Writer {
     column_position: usize,
     color_code: ColorCode,
     buffer: &'static mut Buffer,
-
 }
 
 impl Writer {
     pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
             match byte {
-                // printable ASCII byte or newline
                 0x20..=0x7e | b'\n' => self.write_byte(byte),
-                // not part of printable ASCII range
                 _ => self.write_byte(0xfe),
             }
-
         }
     }
 
- pub fn write_byte(&mut self, byte: u8) {
+    pub fn write_byte(&mut self, byte: u8) {
         match byte {
             b'\n' => self.new_line(),
             byte => {
@@ -87,7 +83,7 @@ impl Writer {
             }
         }
     }
-    
+
     fn new_line(&mut self) {
         for row in 1..BUFFER_HEIGHT {
             for col in 0..BUFFER_WIDTH {
@@ -114,16 +110,28 @@ impl Writer {
             self.column_position -= 1;
             let row = BUFFER_HEIGHT - 1;
             let col = self.column_position;
-            let blank = ScreenChar { 
-                ascii_character: b' ', 
-                color_code: self.color_code, };
+            let blank = ScreenChar {
+                ascii_character: b' ',
+                color_code: self.color_code,
+            };
             self.buffer.chars[row][col].write(blank);
         }
+    }
+
+    pub fn clear_screen(&mut self) {
+        for row in 0..BUFFER_HEIGHT {
+            self.clear_row(row);
+        }
+        self.column_position = 0;
     }
 }
 
 pub fn backspace() {
     WRITER.lock().backspace();
+}
+
+pub fn clear_screen() {
+    WRITER.lock().clear_screen();
 }
 
 impl fmt::Write for Writer {
@@ -144,7 +152,7 @@ lazy_static! {
 #[macro_export]
 macro_rules! println {
     () => ($crate::print!("\n"));
-    ($($arg:tt)*) => ($crate::print!("\n{}", format_args!($($arg)*)));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
 }
 
 #[macro_export]

@@ -7,6 +7,9 @@ pub mod vga_buffer;
 pub mod interrupts;
 pub mod memory;
 pub mod allocator;
+pub mod vfs;
+pub mod commands;
+pub mod shell;
 
 pub fn init() {
     interrupts::init_idt();
